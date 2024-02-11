@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes,Route } from 'react-router-dom';
 import Home from "../Home/Home.tsx"
-import DirectorHome from "../Director/Home/DirectorHome.jsx"
+import DirectorHome from "../Director/Home/DirectorHome.tsx"
 import PrivateRoute from './PrivateRoute.jsx';
 import PublicRoute from './PublicRoute.jsx';
 import ManagerHome from '../Manager/Home/ManagerHome.jsx';

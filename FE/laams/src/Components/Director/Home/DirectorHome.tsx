@@ -1,78 +1,30 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import Calendar from './Calendar'
 import useApi from '../../../Hook/useApi';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useGeoLocation } from '../../../Hook/useGeolocation';
-const DirectorHome = () => {
+import useCalendar from '../../../Hook/Director/useCalendar';
+import useNotice from '../../../Hook/Director/useNotice';
+import { Notice } from '../../../Models/Notice';
+import useDirectorExam from '../../../Hook/Director/useDirectorExam';
 
-  const [examList,setExamList] = useState();
+
+const DirectorHome :React.FC = () => {
+
   const api = useApi();
   const navigate = useNavigate();
   const geolocation = useGeoLocation();
   const [curDate,setCurDate] = useState(new Date());
-  const [todayExamList, setTodayExamList] = useState([]);
-  const [noticeListData, setNoticeListData] = useState([]);
-  const userId = useSelector(state=>state.User.memberId);
+  const [noticeListData, setNoticeListData] = useState<Notice[]>([]);
+  const {handlePrev, handleNext} = useCalendar(curDate,setCurDate);
+  const getNotice = useNotice(setNoticeListData);
 
-  //TODO : 감독관 NO 얻어오는 요청 API
-  const getDirectorInfo = useCallback(async()=>{
-    if(!userId || !api){
-      return
-    }
-    const response = await api.get(`member/info/${userId}`);
-    return response.data.data.memberNo;
-  },[api,userId])
+  const [examList, todayExamList, ,getTodayExamList,getExamList] = useDirectorExam(curDate);
 
-  // TODO :오늘자의 시험(5개) 조회
-  const getTodayExamList = useCallback(async(curDate)=>{
-    const directorUserNo = await getDirectorInfo();
-    await api.get(`director/${directorUserNo}/exams?year=${curDate.getFullYear()}&month=${curDate.getMonth()+1}&day=${curDate.getDate()}`)
-    .then(({data})=>{
-      setTodayExamList(data.data.slice(0,5))
-    }).catch((err)=>{console.log(err)})
-    
-  },[setTodayExamList,api,getDirectorInfo])
 
-  const getExamList = useCallback(async(date)=>{
-    const directorUserNo = await getDirectorInfo();
-    await api.get(`director/${directorUserNo}/exams?year=${date.getFullYear()}&month=${date.getMonth()+1}`)
-    .then(({data})=>{
-      const res = {};
-      data.data.forEach(e=>{
-        const date = new Date(e.examDate);
-        if(res[date.getDate()]){
-          res[date.getDate()].push({
-            centerName : e.centerName,
-            centerRegion : e.centerRegion,
-            examDate : new Date(e.examDate),
-            endExamDate : new Date(e.endExamDate),
-            examType : e.examType,
-            examLanguage : e.examLanguage,
-            examNo: e.examNo
-          });
-        }else{
-          res[date.getDate()]=[{
-            centerName : e.centerName,
-            centerRegion : e.centerRegion,
-            examDate : new Date(e.examDate),
-            endExamDate : new Date(e.endExamDate),
-            examType : e.examType,
-            examLanguage : e.examLanguage,
-            examNo: e.examNo
-          }];
-        }
-      });
-
-      setExamList(res);
-
-    }).catch(err=>console.log(err.response));
-  },[api,getDirectorInfo]);
-
-  //TODO : 오늘 시험 리스트
+  //TODO : 해당 감독관의 오늘 시험 일정 
   const showTodayExamList = useMemo(()=>{
     if(todayExamList.length===0){
-      
       return <div>
               <div className='director-home-todo-box-items-text-none'>오늘의 일정이 없습니다</div>
             </div>
@@ -88,46 +40,6 @@ const DirectorHome = () => {
       })
     }
   },[todayExamList,navigate])
-
-  //TODO : 이전 달 호출
-  //FIXME : 데이터 갱신
-  const handlePrev = useCallback(()=>{
-    let year = curDate.getFullYear();
-    let month = curDate.getMonth();
-    if(month === 0){
-      month = 11;
-      year--;
-    }else{
-      month--;
-    }
-    setCurDate(new Date(year,month,1));
-  },[curDate]);
-
-  //TODO : 다음달 호출
-  //FIXME : 데이터 갱신
-  const handleNext = useCallback(()=>{
-    let year = curDate.getFullYear();
-    let month = curDate.getMonth();
-    if(month === 11){
-      month = 0;
-      year++;
-    }else{
-      month++;
-    }
-    setCurDate(new Date(year,month,1));
-  },[curDate])
-
-  //TODO : 공지사항 (상위 6개) 얻어오는 API
-  const getNotice = useCallback(()=>{
-    api.get('/notice/list?count=6&page=1')
-    .then(({data})=>{
-      setNoticeListData(data.data)
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-  },[api])
-
 
   // TODO : 공지사항 리스트
   const showNotice = useMemo(()=>{
@@ -162,7 +74,9 @@ const DirectorHome = () => {
       const location = await geolocation();
       return location
     }catch(err){
-      alert(err.message);
+      if(err instanceof Error){
+        alert(err.message);
+      }
     }
   },[geolocation])
 
@@ -171,8 +85,7 @@ const DirectorHome = () => {
     const location = await getLocation();
     api.post('director/exams/attendance/home',
     {latitude: location['latitude'], longitude:location['longitude']})
-    // {latitude: 37.5884628, longitude:127.062636})
-    .then(({data})=>{
+    .then(()=>{
       alert('센터 도착이 완료되었습니다')
     })
     .catch((err)=>{
@@ -185,13 +98,15 @@ const DirectorHome = () => {
     })
   },[api,getLocation])
   
-  useEffect(()=>{
-    const today =  new Date();
-    if(!curDate) return;
-    getExamList(curDate);
-    getTodayExamList(today);
+  useEffect(() => {
+    if (!curDate) {
+      return;
+    }
+    
+    getExamList();
+    getTodayExamList();
     getNotice();
-  },[getNotice,getExamList,curDate,getTodayExamList]);
+  }, [getNotice, getExamList, getTodayExamList, curDate]);
 
   return (
     <section className='director-home'>

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import useLogin from '../../Hook/useLogin'
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../models/ReduxRootState';
+import { RootState } from '../../Models/ReduxRootState';
 
 const Home:React.FC = () => {
   const [loginData,] = useState({id:localStorage.getItem("id")? localStorage.getItem("id") : "", password:"", authority:"ROLE_DIRECTOR"});

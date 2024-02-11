@@ -1,11 +1,14 @@
 # LAAMS
+
 ![Logo](https://github.com/Going9/LAAMS/assets/105552606/646666cf-7094-494b-8e1f-3b7d3b580b73)
+
 # 🔥 프로젝트 개요
 
 프로젝트 기간: 2023.10.09 ~ 2023.11.17 <br> 
 
 Language Assessment Attendance Management System <br>
-### 어학 및 자격 평가 출결 관리 시스템 LAAMS 
+
+### 어학 및 자격 평가 출결 관리 시스템 LAAMS
 
 <br><br>
 
@@ -97,7 +100,8 @@ Face-Detection을 이용해 기존의 번거롭고 관리가 힘들었던 출결
 
 # 🛠️ 주요 기능
 
-### 운영자 
+### 운영자
+
 + 대시보드로 시험 전반 관리
 
 ![MN 차트](https://github.com/Going9/LAAMS/assets/105552606/5ce86975-bf96-41a3-a9fe-3da1231f1851)
@@ -106,6 +110,7 @@ Face-Detection을 이용해 기존의 번거롭고 관리가 힘들었던 출결
 <br>
 
 ### 감독관
+
 + 출결관리 및 보상 요청
 
 ![DR상세](https://github.com/Going9/LAAMS/assets/105552606/4619be23-b89f-485f-93ba-4b49020d3056)
@@ -114,47 +119,45 @@ Face-Detection을 이용해 기존의 번거롭고 관리가 힘들었던 출결
 <br>
 
 + 부정행위(대리출석) 의심대상자 캡쳐
-![부정행위 의심대상자](https://github.com/Going9/LAAMS/assets/105552606/5d2e88ae-a358-4f01-92b0-b9f08cc07f53)
-
-
+  ![부정행위 의심대상자](https://github.com/Going9/LAAMS/assets/105552606/5d2e88ae-a358-4f01-92b0-b9f08cc07f53)
 
 <br>
 <br>
 
 + 부정행위 의심대상자의 민증사진 등과 현장 캡쳐본 사진 비교 및 일치율 검토
-![사진비교 전후](https://github.com/Going9/LAAMS/assets/105552606/9ed53e72-2423-461f-bc0e-ee38bfc34eaa)
-
+  ![사진비교 전후](https://github.com/Going9/LAAMS/assets/105552606/9ed53e72-2423-461f-bc0e-ee38bfc34eaa)
 
 <br>
 <br>
 
-### 센터 담당자 
+### 센터 담당자
+
 + 감독관 요청 처리
-![CM_캘린더](https://github.com/Going9/LAAMS/assets/105552606/045a74a2-7fd6-41f0-b033-925a52dda0ea)
+  ![CM_캘린더](https://github.com/Going9/LAAMS/assets/105552606/045a74a2-7fd6-41f0-b033-925a52dda0ea)
 
 <br>
 <br>
 
 ### 응시자
+
 + 시험 신청
-![scrnli_2023- 11- 21- 오전 10-37-26](https://github.com/Going9/LAAMS/assets/105552606/4288e864-5baf-443a-a1fc-c6ccedc53d8d)
+  ![scrnli_2023- 11- 21- 오전 10-37-26](https://github.com/Going9/LAAMS/assets/105552606/4288e864-5baf-443a-a1fc-c6ccedc53d8d)
 
 <br>
 <br>
 
 + face-detection으로 출석
-![응시자 얼굴 인식 출결](https://github.com/Going9/LAAMS/assets/105552606/4cfc01d2-ba2b-4788-8887-397ecb062ef4)
+  ![응시자 얼굴 인식 출결](https://github.com/Going9/LAAMS/assets/105552606/4cfc01d2-ba2b-4788-8887-397ecb062ef4)
 
 <br>
 <br>
 
 + 왼쪽이나 오른쪽으로 고개 돌렸을 시 부정행위 판단
-![응시자 왼쪽 부정행위](https://github.com/Going9/LAAMS/assets/105552606/8c258e51-1a63-4969-857b-f41f7b17c4e7)
-![응시자 오른쪽 부정행위](https://github.com/Going9/LAAMS/assets/105552606/68b8880b-a6be-40f1-8029-637fec601eb4)
+  ![응시자 왼쪽 부정행위](https://github.com/Going9/LAAMS/assets/105552606/8c258e51-1a63-4969-857b-f41f7b17c4e7)
+  ![응시자 오른쪽 부정행위](https://github.com/Going9/LAAMS/assets/105552606/68b8880b-a6be-40f1-8029-637fec601eb4)
 
 <br>
 <br>
-
 
 <br>
 <br>
